@@ -11,4 +11,11 @@ public class Expense {
     Date updatedAt;
     boolean deleted;
     List<ExpenseItem> expenseItems;
+
+    public Expense(String description, Integer totalAmount, List<ExpenseItem> expenseItems) {
+        this.id = id;
+        this.description = description;
+        this.totalAmount = totalAmount;
+        this.expenseItems = expenseItems;
+    }
 }

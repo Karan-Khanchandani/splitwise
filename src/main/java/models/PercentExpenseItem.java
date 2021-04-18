@@ -2,26 +2,25 @@ package models;
 
 import java.util.Date;
 
-public class EqualExpenseItem extends ExpenseItem {
+public class PercentExpenseItem extends ExpenseItem{
     Integer id;
     Integer payerId;
     Integer payeeId;
-    Integer numberOfPeople;
+    Integer percent;
     Integer totalAmount;
     Date createdAt;
     Date updatedAt;
     boolean deleted;
 
-    public EqualExpenseItem(Integer payerId, Integer payeeId, Integer numberOfPeople, Integer totalAmount) {
-        this.id = id;
+    public PercentExpenseItem(Integer payerId, Integer payeeId, Integer totalAmount, Integer percent) {
         this.payerId = payerId;
         this.payeeId = payeeId;
-        this.numberOfPeople = numberOfPeople;
+        this.percent = percent;
         this.totalAmount = totalAmount;
     }
 
     @Override
     Integer getAmount() {
-        return totalAmount/numberOfPeople;
+        return totalAmount*percent/100;
     }
 }
