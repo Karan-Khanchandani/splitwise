@@ -18,4 +18,12 @@ public class Expense {
         this.totalAmount = totalAmount;
         this.expenseItems = expenseItems;
     }
+
+    public boolean isValid(){
+        Integer expSum = 0;
+        for(ExpenseItem exp: expenseItems){
+            expSum += exp.getAmount();
+        }
+        return totalAmount.equals(expSum);
+    }
 }
