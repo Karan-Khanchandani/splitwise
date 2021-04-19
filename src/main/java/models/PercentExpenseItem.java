@@ -13,7 +13,7 @@ public class PercentExpenseItem extends ExpenseItem{
     }
 
     @Override
-    Integer getAmount() {
+    public Integer getAmount() {
         return totalAmount*percent/100;
     }
 }

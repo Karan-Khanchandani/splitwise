@@ -11,7 +11,7 @@ public class ExactExpenseItem extends ExpenseItem{
     }
 
     @Override
-    Integer getAmount() {
+    public Integer getAmount() {
         return exactAmount;
     }
 }

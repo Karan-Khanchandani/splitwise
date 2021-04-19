@@ -13,7 +13,7 @@ public class EqualExpenseItem extends ExpenseItem {
     }
 
     @Override
-    Integer getAmount() {
+    public Integer getAmount() {
         return totalAmount/numberOfPeople;
     }
 }

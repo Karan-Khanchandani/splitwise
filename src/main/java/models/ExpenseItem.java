@@ -16,7 +16,7 @@ public abstract class ExpenseItem {
         this.payeeId = payeeId;
     }
 
-    abstract Integer getAmount();
+    public abstract Integer getAmount();
 
     public Integer getPayerId() {
         return payerId;
