@@ -23,11 +23,10 @@ public class ShowCommand extends Command {
         if(inputs.length > 1) {
             throw new InvalidInputException();
         }
-        System.out.println("Executing show command");
         if(inputs.length == 0){
             expenseItems = expenseService.show();
         }else {
-            expenseItems = expenseService.show(Integer.parseInt(inputs[1]));
+            expenseItems = expenseService.show(Integer.parseInt(inputs[0]));
         }
 
         if(expenseItems == null ||  expenseItems.size() == 0){
@@ -42,16 +41,38 @@ public class ShowCommand extends Command {
             Integer amt = e.getAmount();
             if(!payer.equals(payee)){
                 String key = payer + "-" + payee;
+                String revKey = payee + "-" + payer;
+
                 if(!amtMap.containsKey(key)){
                     amtMap.put(key, 0);
                 }
-                amtMap.put(key, amtMap.get(key) + amt);
+
+                if(amtMap.containsKey(revKey)){
+                    simplifyCalculations(amtMap, amt, key, revKey);
+                }else{
+                    amtMap.put(key, amtMap.get(key) + amt);
+                }
             }
         }
+
         for(Map.Entry<String, Integer> entry: amtMap.entrySet()){
             String key = entry.getKey();
             String[] sp = key.split("-");
-            System.out.printf("User%s owes User%s: %d", sp[0], sp[1], entry.getValue());
+            System.out.printf("User%s owes User%s: %d\n", sp[1], sp[0], entry.getValue());
+        }
+    }
+
+    private void simplifyCalculations(Map<String, Integer> amtMap, Integer amt, String key, String revKey) {
+        Integer revAmt = amtMap.get(revKey);
+        if(amt == revAmt){
+            amtMap.remove(revKey);
+            amtMap.remove(key);
+        }else if(amt > revAmt){
+            amtMap.remove(revKey);
+            amtMap.put(key, amtMap.get(key) + amt - revAmt);
+        }else{
+            amtMap.remove(key);
+            amtMap.put(revKey, amtMap.get(revKey) + revAmt - amt);
         }
     }
 }

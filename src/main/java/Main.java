@@ -1,4 +1,6 @@
 import inputparser.InputParser;
+import repository.IExpenseRepository;
+import repository.InMemoryExpenseRepository;
 import service.ExpenseService;
 import service.IExpenseService;
 
@@ -9,12 +11,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        IExpenseService expenseService = new ExpenseService();
+        IExpenseRepository expenseRepository = new InMemoryExpenseRepository();
+        IExpenseService expenseService = new ExpenseService(expenseRepository);
 
         InputParser ip = new InputParser(expenseService);
         String input;
         while(true){
-            input = sc.next();
+            input = sc.nextLine();
             if(input.equalsIgnoreCase("exit"))break;
             ip.parse(input);
         }

@@ -10,6 +10,7 @@ public class Expense {
     Date createdAt;
     Date updatedAt;
     boolean deleted;
+
     List<ExpenseItem> expenseItems;
 
     public Expense(String description, Integer totalAmount, List<ExpenseItem> expenseItems) {
@@ -25,5 +26,9 @@ public class Expense {
             expSum += exp.getAmount();
         }
         return totalAmount.equals(expSum);
+    }
+
+    public List<ExpenseItem> getExpenseItems() {
+        return expenseItems;
     }
 }
